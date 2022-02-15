@@ -59,19 +59,29 @@ const OUTGOING_IMG_MSG_ITEM_PLACE_HOLDER = "<div id=\"view-template\" class=\"ms
     "                              </div>\n" +
     "                        </div>"
 
+const INCOMING_PRICING_ITEM_PLACE_HOLDER = "<div id=\"view-template\" class=\"msg-item incoming placeholder\">\n" +
+    "                            <div class=\"pricing-item\">\n" +
+    "                                <div class=\"radio\" style=\"\"></div>\n" +
+    "                                <small>30 minute walk</small>\n" +
+    "                                <strong>$29</strong>\n" +
+    "                            </div>\n" +
+    "                        </div>"
 
+const INCOMING_PRICING_ITEM = "<div id=\"view-template\" class=\"msg-item incoming \">\n" +
+    "                            <div class=\"pricing-item\">\n" +
+    "                                <div class=\"radio\"></div>\n" +
+    "                                <small></small>\n" +
+    "                                <strong></strong>\n" +
+    "                            </div>\n" +
+    "                        </div>"
 
 const MSG_FIELD_SENTENCE_ITEM = "<div id='sentence-view-template' class='msg-field-sentence-item'>" +
     "<div class='content'></div>" +
     "<div class='mask'></div>" +
     "</div>"
 
-let incomingTextMsgPlaceHolder = ""
-let incommingPricingItemMsgPlaceHolder = ""
-let outgoingImgMsgPlaceHolder = ""
-
-
 let msgQueue = null
+
 document.addEventListener("DOMContentLoaded", () => {
     msgQueue = document.getElementsByClassName("queue")[0];
     setTimeout(() => {
@@ -82,24 +92,24 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 function startMsgQueueAnimation() {
-    // first display the incomingMsgTxtPlaceHoler
+    // first msg incoming Msg Txt Placeholder animation
     renderIncomingMsgTxtItemPlaceHolder()
 
-    //wait 1.5s then add an incomming msh txt item
+    //first incoming msg txt item animation
     setTimeout(() => {
             renderIncomingMsgTxtItem("That sound great. i'd be happy to discuss more.")
         },
         1500
     )
 
-    //wait 2.5s display the second incoming message placeholder incoming
+    // second msg incoming Msg Txt Placeholder animation
     setTimeout(() => {
             renderIncomingMsgTxtItemPlaceHolder()
         },
         2500
     )
 
-    //wait 4s then add an incomming msh txt item
+    //second incoming msg txt item animation
     setTimeout(() => {
             renderIncomingMsgTxtItem("Could you send over some pictures of your dog. please ?")
         },
@@ -107,14 +117,14 @@ function startMsgQueueAnimation() {
     )
 
 
-    //todo : start the image bottom sheet animation
+    //the image bottom sheet animation
     setTimeout(() => {
         simulateClickOnImageSelector()
         showBottomSheetBackDrop()
         showBottomSheet()
     }, 5000)
 
-    //todo : start the first image selection animation
+    //first image selection animation
     let imageGridItemClickableCovers = document.getElementsByClassName("clickable-cover")
     let imageGridItemSelectableCovers = document.getElementsByClassName("selectable-cover")
 
@@ -127,7 +137,7 @@ function startMsgQueueAnimation() {
     }, 7200)
 
 
-    //todo : start the second image selection animation
+    //second image selection animation
     setTimeout(() => { //todo : the click
         imageGridItemClickableCovers[1].classList.add("image-clickable-cover-clicked")
     }, 8000)
@@ -136,7 +146,7 @@ function startMsgQueueAnimation() {
         imageGridItemSelectableCovers[1].classList.add("selectable-cover-click-selected")
     }, 8200)
 
-    //todo : start the third image selection animation
+    //third image selection animation
     setTimeout(() => { //todo : the click
         imageGridItemClickableCovers[2].classList.add("image-clickable-cover-clicked")
     }, 9000)
@@ -146,23 +156,23 @@ function startMsgQueueAnimation() {
     }, 9200)
 
 
-    //todo : simulate a click on the send btn
+    //simulate a click on the send btn
     setTimeout(() => {
         document.getElementById("btn-send-images").classList.add("control-clicked")
     }, 10000)
 
-    //todo : start queue image upload animation
+    //queue image upload animation
     setTimeout(() => {
         renderOutgoingImageItemPlaceHolder()
     }, 10200)
 
-    //todo : hide the bottom sheet
+    //hide the bottom sheet
     setTimeout(() => {
         hideBottomSheet()
         hideBottomSheetBackDrop()
     }, 11000)
 
-    //todo : start queue image upload animation
+    //start queue image upload animation
     setTimeout(() => {
         renderOutgoingImageItem()
     }, 14000)
@@ -190,7 +200,22 @@ function startMsgQueueAnimation() {
         25500
     )
 
-    //todo : end with the last items
+    //animate last pricing items
+    setTimeout(()=>{
+        renderIncomingPricingItemPlaceHolder()
+    }, 27000)
+
+    setTimeout(()=>{
+        renderIncomingPricingItem("30 minute walk", "$29")
+    }, 29000)
+
+    setTimeout(()=>{
+        renderIncomingPricingItemPlaceHolder()
+    }, 30700)
+
+    setTimeout(()=>{
+        renderIncomingPricingItem("45 minute walk", "$49")
+    }, 31700)
 }
 
 //==================== outgoing image item animation ==============
@@ -223,6 +248,21 @@ function hideBottomSheet() {
     document.getElementsByClassName("images-bottom-sheet")[0].classList.replace("show","hide")
 }
 
+//============ pricing items ===============
+
+function renderIncomingPricingItemPlaceHolder() {
+    msgQueue.appendChild(createView(INCOMING_PRICING_ITEM_PLACE_HOLDER))
+}
+
+function renderIncomingPricingItem(label, price) {
+    let pricingItem = createView(INCOMING_PRICING_ITEM)
+    pricingItem.setAttribute("id", "")
+    pricingItem.getElementsByClassName("pricing-item")[0].getElementsByTagName("small")[0].innerText = label
+    pricingItem.getElementsByClassName("pricing-item")[0].getElementsByTagName("strong")[0].innerText = price
+    msgQueue.replaceChild(pricingItem,msgQueue.getElementsByClassName("placeholder")[0])
+}
+
+
 //============== outgoing text animations =======================
 function firstOutgoingMsgtypingAnimation(sentences) {
     let msgField = document.getElementsByClassName("msg-field")[0]
@@ -244,12 +284,12 @@ function firstOutgoingMsgtypingAnimation(sentences) {
         msgField.getElementsByClassName("msg-field-sentence-item")[1].getElementsByClassName("mask")[0].classList.add("typing")
     }, 3000)
 
-    //todo : wait 1s simulate the click on the send message btn
+    //simulate the click on the send message btn
     setTimeout(() => {
         document.getElementById("send-msg").classList.add("animate")
     }, 3200)
 
-    //todo : wait .5s then add the corresponding message item in the msgQueue
+    //add the corresponding message item in the msgQueue
     setTimeout(() => {
         renderOutgoingMsgTxtItem(msgField.innerText.toString())
         msgField.innerHTML = "Type amessage..."
@@ -268,12 +308,13 @@ function secondOutgoingMsgtypingAnimation(sentences) {
         msgFieldSentenceItem.getElementsByClassName("mask")[0].classList.add("typing")
     })
 
-    //todo : wait 1s simulate the click on the send message btn
+    //simulate the click on the send message btn
     document.getElementById("send-msg").classList.remove("animate")
     setTimeout(() => {
         document.getElementById("send-msg").classList.add("animate")
     }, 100)
-    //todo : wait .5s then add the corresponding message item in the msgQueue
+
+    //add the corresponding message item in the msgQueue
     setTimeout(() => {
         renderOutgoingMsgTxtItem(msgField.innerText.toString())
         msgField.innerHTML = "Type amessage..."
