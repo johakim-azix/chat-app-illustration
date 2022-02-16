@@ -128,30 +128,30 @@ function startMsgQueueAnimation() {
     let imageGridItemClickableCovers = document.getElementsByClassName("clickable-cover")
     let imageGridItemSelectableCovers = document.getElementsByClassName("selectable-cover")
 
-    setTimeout(() => { //todo : the click
+    setTimeout(() => { //the click
         imageGridItemClickableCovers[0].classList.add("image-clickable-cover-clicked")
     }, 1000)
 
-    setTimeout(() => { //todo : the select
+    setTimeout(() => { //the select
         imageGridItemSelectableCovers[0].classList.add("selectable-cover-click-selected")
     }, 7200)
 
 
     //second image selection animation
-    setTimeout(() => { //todo : the click
+    setTimeout(() => { //the click
         imageGridItemClickableCovers[1].classList.add("image-clickable-cover-clicked")
     }, 8000)
 
-    setTimeout(() => { //todo : the select
+    setTimeout(() => { //the select
         imageGridItemSelectableCovers[1].classList.add("selectable-cover-click-selected")
     }, 8200)
 
     //third image selection animation
-    setTimeout(() => { //todo : the click
+    setTimeout(() => { //the click
         imageGridItemClickableCovers[2].classList.add("image-clickable-cover-clicked")
     }, 9000)
 
-    setTimeout(() => { //todo : the select
+    setTimeout(() => { //the select
         imageGridItemSelectableCovers[2].classList.add("selectable-cover-click-selected")
     }, 9200)
 
@@ -193,7 +193,7 @@ function startMsgQueueAnimation() {
         24000
     )
 
-    //wait 25.5s then add an incomming msh txt item
+    //add third incoming msg txt item
     setTimeout(() => {
             renderIncomingMsgTxtItem("She looks so happy, the time we discussed works.How long should i take her out for?")
         },
